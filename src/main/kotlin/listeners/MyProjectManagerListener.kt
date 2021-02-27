@@ -1,9 +1,9 @@
-package com.github.daidodo.formatimportsintellij.listeners
+package listeners
 
-import com.github.daidodo.formatimportsintellij.services.MyProjectService
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManagerListener
+import services.MyProjectService
 
 internal class MyProjectManagerListener : ProjectManagerListener {
 

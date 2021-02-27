@@ -1,6 +1,6 @@
 <idea-plugin>
-    <id>com.github.daidodo.formatimportsintellij</id>
-    <name>format-imports-intellij</name>
+    <id>com.github.daidodo.format-imports</id>
+    <name>JS/TS Import/Export Sorter</name>
     <vendor>daidodo</vendor>
 
     <!-- Product and plugin compatibility requirements -->
@@ -8,12 +8,12 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.daidodo.formatimportsintellij.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.daidodo.formatimportsintellij.services.MyProjectService"/>
+        <applicationService serviceImplementation="services.MyApplicationService"/>
+        <projectService serviceImplementation="services.MyProjectService"/>
     </extensions>
 
     <applicationListeners>
-        <listener class="com.github.daidodo.formatimportsintellij.listeners.MyProjectManagerListener"
+        <listener class="listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
 </idea-plugin>

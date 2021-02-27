@@ -1,6 +1,5 @@
-package com.github.daidodo.formatimportsintellij.services
+package services
 
-import com.github.daidodo.formatimportsintellij.MyBundle
 import com.intellij.openapi.project.Project
 
 class MyProjectService(project: Project) {

@@ -1,5 +1,3 @@
-package com.github.daidodo.formatimportsintellij
-
 import com.intellij.AbstractBundle
 import org.jetbrains.annotations.NonNls
 import org.jetbrains.annotations.PropertyKey
