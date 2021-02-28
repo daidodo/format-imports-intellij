@@ -1,18 +1,23 @@
-<idea-plugin>
+<idea-plugin url="https://github.com/daidodo/format-imports-intellij">
     <id>daidodo.format-imports</id>
     <name>JS/TS Import/Export Sorter</name>
-    <vendor>Daidodo</vendor>
+    <description>Format imports and exports for JavaScript and TypeScript</description>
+    <vendor email="daidodo@gmail.com" url="https://github.com/daidodo">Zhao DAI</vendor>
+    <category>JavaScript Frameworks and Tools</category>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>JavaScript</depends>
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <projectService serviceImplementation="services.MyProjectService"/>
+        <projectService serviceImplementation="services.ProjectService"/>
     </extensions>
-
-    <applicationListeners>
-        <listener class="listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
+    
+    <actions>
+        <action id="format-imports.FormatImports" class="actions.FormatImportsAction" text="Sort Imports/Exports">
+            <add-to-group group-id="EditorPopupMenu" relative-to-action="EditorToggleColumnMode" anchor="after"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="alt shift S"/>
+        </action>
+    </actions>
 </idea-plugin>
