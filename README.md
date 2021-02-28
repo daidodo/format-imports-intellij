@@ -1,8 +1,8 @@
 # JS/TS Import/Export Sorter
 
 ![Build](https://github.com/daidodo/format-imports-intellij/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/16188.svg)](https://plugins.jetbrains.com/plugin/16188)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/16188.svg)](https://plugins.jetbrains.com/plugin/16188)
+[![Version](https://img.shields.io/jetbrains/plugin/v/16195.svg)](https://plugins.jetbrains.com/plugin/16195)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/16195.svg)](https://plugins.jetbrains.com/plugin/16195)
 
 ## Template ToDo list
 - [x] Create a new [IntelliJ Platform Plugin Template][template] project.
