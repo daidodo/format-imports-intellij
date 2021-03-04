@@ -104,4 +104,5 @@ dist
 
 .gradle
 .idea
-build
+build/
+generated/

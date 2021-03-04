@@ -74,7 +74,6 @@ tasks {
     withType<KotlinCompile> {
         kotlinOptions.jvmTarget = "1.8"
     }
-
     withType<Detekt> {
         jvmTarget = "1.8"
     }
@@ -118,5 +117,11 @@ tasks {
         // Specify pre-release label to publish the plugin in a custom Release Channel automatically. Read more:
         // https://plugins.jetbrains.com/docs/intellij/deployment.html#specifying-a-release-channel
         channels(properties("pluginVersion").split('-').getOrElse(1) { "default" }.split('.').first())
+    }
+
+    processResources {
+        from("generated") {
+            include("**/*.js")
+        }
     }
 }
