@@ -121,7 +121,7 @@ tasks {
 
     processResources {
         from("generated") {
-            include("**/*.js")
+            include("**/*.js", "node_modules/**/*")
         }
     }
 }
