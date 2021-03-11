@@ -4,10 +4,10 @@ import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 fun properties(key: String) = project.findProperty(key).toString()
+val TS_DIR = "src/main/ts"
+val TSC = "$TS_DIR/node_modules/.bin/tsc"
 
 plugins {
-    // Java support
-    id("java")
     // Kotlin support
     id("org.jetbrains.kotlin.jvm") version "1.4.31"
     // gradle-intellij-plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
@@ -117,6 +117,32 @@ tasks {
         // Specify pre-release label to publish the plugin in a custom Release Channel automatically. Read more:
         // https://plugins.jetbrains.com/docs/intellij/deployment.html#specifying-a-release-channel
         channels(properties("pluginVersion").split('-').getOrElse(1) { "default" }.split('.').first())
+    }
+
+    register("npmInstall") {
+        doFirst {
+            if (!File(TSC).exists()) {
+                project.exec {
+                    workingDir = File(TS_DIR)
+                    executable = "npm"
+                    args('i')
+                }
+            }
+        }
+    }
+
+    register("compileTS") {
+        doFirst {
+            dependsOn("npmInstall")
+            project.exec {
+                executable = TSC
+                args("-p", "src/main/ts")
+            }
+        }
+    }
+
+    prepareSandbox {
+
     }
 
     processResources {
