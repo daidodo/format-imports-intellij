@@ -2,6 +2,10 @@
 
 # format-imports-intellij Changelog
 
+## [1.0.0]
+### Added
+- Format on save, or manually from context menu or shortcut.
+
 ## [0.0.1]
 ### Added
 - Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)
