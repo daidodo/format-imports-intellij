@@ -6,7 +6,7 @@
 
 <!-- Plugin description -->
 
-Automatically format **imports** and **exports** for **JavaScript** and **TypeScript**.
+Automatically format **imports** and **exports** for **JavaScript** and **TypeScript** in IntelliJ IDEs.
 
 ## Features
 
