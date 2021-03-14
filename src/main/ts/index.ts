@@ -14,12 +14,11 @@ class FormatImportsPlugin {
 
   handleRequest(request: Request | undefined) {
     if (!request) return { error: 'Invalid request' };
-    // @ts-ignore
-    const { command, arguments } = request;
+    const { command } = request;
     try {
       switch (command) {
         case 'formatSourceFromFile':
-          return this.formatSourceFromFile(arguments as FormatFileArgs);
+          return this.formatSourceFromFile(request.arguments as FormatFileArgs);
         default:
           return { error: `Unknown command '${command}'` };
       }
