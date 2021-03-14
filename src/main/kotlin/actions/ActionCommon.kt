@@ -15,7 +15,7 @@ import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiFile
 import services.FormatImportsService
 
-class ActionCommon {
+sealed class ActionCommon {
 
     companion object {
         private val LOG = Logger.getInstance(this::class.java)
@@ -38,10 +38,8 @@ class ActionCommon {
                     val (filePath, source) = ReadAction.compute<PathAndSource, RuntimeException> {
                         pathAndSource(project, psiFile)
                     }
-                    if (Config.supports(filePath))
-                        JSLanguageServiceUtil.awaitFuture(service.formatSourceFromFile(source, filePath))
-                    else
-                        null
+                    if (!Config.supports(filePath)) null
+                    else JSLanguageServiceUtil.awaitFuture(service.formatSourceFromFile(source, filePath))
                 },
                 Bundle.message("progressTitle"),
                 true,

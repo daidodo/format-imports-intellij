@@ -9,15 +9,16 @@ import org.jetbrains.annotations.NotNull
 class FormatOnSaveAction : LinterSaveActionsManager.LinterSaveAction() {
 
     override fun isEnabledForProject(project: @NotNull Project): Boolean {
-        //TODO: Check config.
-        return true;
+        // TODO: Check config.
+        return true
     }
 
     override fun processDocuments(project: @NotNull Project, documents: @NotNull Array<out @NotNull Document>) {
         for (document in documents) {
-            if (!ActionCommon.isSupported(document, project)) continue
-            val result = ActionCommon.format(document, project) ?: continue
-            WriteCommandAction.runWriteCommandAction(project) { document.setText(result) }
+            if (ActionCommon.isSupported(document, project)) {
+                val result = ActionCommon.format(document, project) ?: continue
+                WriteCommandAction.runWriteCommandAction(project) { document.setText(result) }
+            }
         }
     }
 }

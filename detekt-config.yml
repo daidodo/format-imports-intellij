@@ -6,3 +6,14 @@ formatting:
     continuationIndentSize: 8
   ParameterListWrapping:
     indentSize: 8
+
+empty-blocks:
+  EmptyFunctionBlock:
+    active: true
+    ignoreOverridden: true
+
+style:
+  ReturnCount:
+    active: false
+  ForbiddenComment:
+    active: false

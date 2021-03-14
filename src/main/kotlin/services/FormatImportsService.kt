@@ -1,8 +1,16 @@
 package services
 
 import Bundle
-import com.intellij.lang.javascript.service.*
-import com.intellij.lang.javascript.service.protocol.*
+import com.intellij.lang.javascript.service.JSLanguageServiceBase
+import com.intellij.lang.javascript.service.JSLanguageServiceDefaultCacheData
+import com.intellij.lang.javascript.service.JSLanguageServiceQueue
+import com.intellij.lang.javascript.service.JSLanguageServiceQueueImpl
+import com.intellij.lang.javascript.service.JSLanguageServiceUtil
+import com.intellij.lang.javascript.service.protocol.JSLanguageServiceAnswer
+import com.intellij.lang.javascript.service.protocol.JSLanguageServiceCommandObject
+import com.intellij.lang.javascript.service.protocol.JSLanguageServiceInitialState
+import com.intellij.lang.javascript.service.protocol.JSLanguageServiceNodeStdProtocolBase
+import com.intellij.lang.javascript.service.protocol.LocalFilePath
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.project.Project
 import com.intellij.util.EmptyConsumer

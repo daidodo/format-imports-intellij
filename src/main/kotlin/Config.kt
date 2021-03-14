@@ -1,6 +1,6 @@
 import java.io.File
 
-class Config {
+sealed class Config {
 
     companion object {
         private val SUPPORTED_EXTENSIONS = Bundle.message("supportedExtensions").split(",")
@@ -9,6 +9,4 @@ class Config {
             return SUPPORTED_EXTENSIONS.contains(File(filePath).extension)
         }
     }
-
-
 }
