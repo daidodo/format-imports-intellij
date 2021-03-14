@@ -4,8 +4,6 @@ import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 fun properties(key: String) = project.findProperty(key).toString()
-val TS_DIR = "src/main/ts"
-val TSC = "$TS_DIR/node_modules/.bin/tsc"
 
 plugins {
     // Kotlin support
@@ -121,9 +119,9 @@ tasks {
 
     register("npmInstall") {
         doFirst {
-            if (!File(TSC).exists()) {
+            if (!File(properties("tsc")).exists()) {
                 project.exec {
-                    workingDir = File(TS_DIR)
+                    workingDir = File(properties("tsDir"))
                     executable = "npm"
                     args('i')
                 }
@@ -132,22 +130,29 @@ tasks {
     }
 
     register("compileTS") {
+        dependsOn("npmInstall")
         doFirst {
-            dependsOn("npmInstall")
             project.exec {
-                executable = TSC
-                args("-p", "src/main/ts")
+                executable = properties("tsc")
+                args("-p", properties("tsDir"))
             }
         }
     }
 
     prepareSandbox {
-
-    }
-
-    processResources {
+        dependsOn("compileTS")
         from("generated") {
-            include("**/*.js", "node_modules/**/*")
+            into(intellij.pluginName)
+        }
+        from(properties("tsDir")) {
+            include("node_modules/**/*")
+            into("${intellij.pluginName}/languageService")
         }
     }
+
+//    processResources {
+//        from("generated") {
+//            include("**/*.js", "node_modules/**/*")
+//        }
+//    }
 }
