@@ -18,7 +18,6 @@ Automatically format **imports** and **exports** for **JavaScript** and **TypeSc
 - Respect configs from [Prettier](https://prettier.io), [EditorConfig](https://editorconfig.org) and VS Code editor settings.
 - Preserve `'use strict'`, `///` directives, shebang (`#!`) and comments.
 - Support [Type-Only imports/exports](https://devblogs.microsoft.com/typescript/announcing-typescript-3-8/#type-only-imports-exports).
-- Support multi-root projects.
 
 <!-- Plugin description end -->
 
