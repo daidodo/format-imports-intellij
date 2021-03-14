@@ -47,13 +47,14 @@ class ActionCommon {
                 true,
                 project
             ) ?: return null
-            LOG.debug("response: $response")
-            val error = response.element["error"].asString
+            LOG.info("response: $response")
+            val extract = { key: String -> if (response.element.has(key)) response.element[key].asString else null }
+            val error = extract("error")
             if (error != null && error.isNotEmpty()) {
                 // TODO: Error handler
                 return null
             }
-            return response.element["result"].asString
+            return extract("result")
         }
 
         private fun pathAndSource(project: Project?, psiFile: PsiFile?): PathAndSource? {

@@ -16,7 +16,6 @@ class FormatImportsPlugin implements Plugin {
   onMessage(p: string, writer: MessageWriter) {
     const request: Request = JSON.parse(p);
     const response: Response = {
-      error: '', result: undefined,
       ...this.handleRequest(request),
       request_seq: request.seq,
     };
@@ -43,7 +42,7 @@ class FormatImportsPlugin implements Plugin {
     const {filePath, source} = args;
     // TODO: Base config
     const config = resolveConfigForFile(filePath);
-    if (isFileExcludedByConfig(filePath, config)) return {};
+    if (isFileExcludedByConfig(filePath, config)) return;
     return {result: formatSourceFromFile(source, filePath, config)};
   }
 }

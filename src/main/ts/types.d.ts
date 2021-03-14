@@ -17,8 +17,8 @@ export interface Request {
 
 export interface Response {
   request_seq: number;
-  error: string;
-  result: string | undefined;
+  error?: string;
+  result?: string;
 }
 
 export interface FormatFileArgs {
