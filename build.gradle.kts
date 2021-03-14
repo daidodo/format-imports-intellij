@@ -149,10 +149,4 @@ tasks {
             into("${intellij.pluginName}/languageService")
         }
     }
-
-//    processResources {
-//        from("generated") {
-//            include("**/*.js", "node_modules/**/*")
-//        }
-//    }
 }

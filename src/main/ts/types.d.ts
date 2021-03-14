@@ -25,3 +25,11 @@ export interface FormatFileArgs {
   filePath: string;
   source: string;
 }
+
+export interface Plugin {
+  onMessage(p: string, writer: MessageWriter)
+}
+
+export interface PluginFactory {
+  create(state: PluginState)
+}

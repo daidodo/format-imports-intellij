@@ -1,7 +1,18 @@
-import {formatSourceFromFile, isFileExcludedByConfig, resolveConfigForFile} from 'format-imports';
-import {FormatFileArgs, MessageWriter, PluginState, Request, Response} from './types';
+import {
+  formatSourceFromFile,
+  isFileExcludedByConfig,
+  resolveConfigForFile,
+} from 'format-imports';
 
-class FormatImportsPlugin {
+import {
+  FormatFileArgs,
+  MessageWriter,
+  PluginState,
+  Request,
+  Response, Plugin, PluginFactory
+} from './types';
+
+class FormatImportsPlugin implements Plugin {
   onMessage(p: string, writer: MessageWriter) {
     const request: Request = JSON.parse(p);
     const response: Response = {
@@ -12,34 +23,34 @@ class FormatImportsPlugin {
     writer.write(JSON.stringify(response));
   }
 
-  handleRequest(request: Request | undefined) {
-    if (!request) return { error: 'Invalid request' };
-    const { command } = request;
+  private handleRequest(request: Request | undefined) {
+    if (!request) return {error: 'Invalid request'};
+    const {command} = request;
     try {
       switch (command) {
         case 'formatSourceFromFile':
           return this.formatSourceFromFile(request.arguments as FormatFileArgs);
         default:
-          return { error: `Unknown command '${command}'` };
+          return {error: `Unknown command '${command}'`};
       }
     } catch (e: unknown) {
-      return { error: e instanceof Error ? e.message : `${e}` };
+      return {error: e instanceof Error ? e.message : `${e}`};
     }
   }
 
   private formatSourceFromFile(args: FormatFileArgs | undefined) {
-    if (!args || !args.filePath) return { error: 'Missing file path' };
-    const { filePath, source } = args;
+    if (!args || !args.filePath) return {error: 'Missing file path'};
+    const {filePath, source} = args;
     // TODO: Base config
     const config = resolveConfigForFile(filePath);
     if (isFileExcludedByConfig(filePath, config)) return {};
-    return { result: formatSourceFromFile(source, filePath, config) };
+    return {result: formatSourceFromFile(source, filePath, config)};
   }
 }
 
-class FormatImportsPluginFactory {
+class FormatImportsPluginFactory implements PluginFactory {
   create(_: PluginState) {
-    return { languagePlugin: new FormatImportsPlugin() };
+    return {languagePlugin: new FormatImportsPlugin()};
   }
 }
 
