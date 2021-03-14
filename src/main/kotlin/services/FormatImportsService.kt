@@ -29,7 +29,6 @@ class FormatImportsService(project: Project) : JSLanguageServiceBase(project) {
                 val file =
                     JSLanguageServiceUtil.getPluginDirectory(this.javaClass, "languageService/index.js")
                 state.pluginPath = LocalFilePath.create(file.absolutePath)
-                println("pluginName: ${state.pluginName}, pluginPath: ${state.pluginPath}")
                 LOG.warn("pluginName: ${state.pluginName}, pluginPath: ${state.pluginPath}")
                 return state
             }
@@ -45,47 +44,10 @@ class FormatImportsService(project: Project) : JSLanguageServiceBase(project) {
     }
 
     fun formatSourceFromFile(source: String, filePath: String): Future<JSLanguageServiceAnswer>? {
-        val process = process
-        if (process == null || !process.isValid)
-            return null
         val request = Request(source, filePath)
-        println("request: filePath = ${request.filePath}, source = ${request.source}")
-        LOG.warn("request: filePath = ${request.filePath}, source = ${request.source}")
-        return process.execute(request) { _, response ->
-            // TODO: Remove debug code
-            if (true) {
-                println("response: $response")
-                LOG.warn("response: $response")
-                val e = response.element
-                val error = e["error"].asString
-                println("error: $error")
-                LOG.warn("error: $error")
-                val result = response.element["result"].asString
-                if (result != null) {
-                    println("result: $result")
-                    LOG.warn("result: $result")
-                }
-            }
+        LOG.warn("request: command = ${request.command}, filePath = ${request.filePath}, source = ${request.source}")
+        return sendCommand(request) { _, response ->
             response
         }
-//        return sendCommand(request) { _, response ->
-//            // TODO: Remove debug code
-//            if (true) {
-//                println("response: $response")
-//                LOG.warn("response: $response")
-//                val error = response.element["error"].asString
-//                println("error: $error")
-//                LOG.warn("error: $error")
-//                if (error != null && error.isNotEmpty()) {
-//                    // TODO: Error handling
-//                }
-//                val result = response.element["result"].asString
-//                if (result != null) {
-//                    println("result: $result")
-//                    LOG.warn("result: $result")
-//                }
-//            }
-//            response
-//        }
     }
 }

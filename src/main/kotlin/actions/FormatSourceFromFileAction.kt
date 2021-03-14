@@ -56,18 +56,13 @@ class FormatSourceFromFileAction : AnAction() {
             true,
             project
         ) ?: return
-        println("response: $response")
         LOG.warn("response: $response")
         val error = response.element["error"].asString
-        println("error: $error")
-        LOG.warn("error: $error")
         if (error != null && error.isNotEmpty()) {
             // TODO: Error handler
             return
         }
         val result = response.element["result"].asString
-        println("result: $result")
-        LOG.warn("result: $result")
         EditorScrollingPositionKeeper.perform(editor, true) {
             WriteCommandAction.runWriteCommandAction(project) { document.setText(result) }
         }
