@@ -1,11 +1,11 @@
-import { formatSourceFromFile, isFileExcludedByConfig, resolveConfigForFile } from 'format-imports';
-import { FormatFileArgs, MessageWriter, PluginState, Request, Response } from './types';
+import {formatSourceFromFile, isFileExcludedByConfig, resolveConfigForFile} from 'format-imports';
+import {FormatFileArgs, MessageWriter, PluginState, Request, Response} from './types';
 
 class FormatImportsPlugin {
   onMessage(p: string, writer: MessageWriter) {
     const request: Request = JSON.parse(p);
     const response: Response = {
-      error: '',
+      error: '', result: undefined,
       ...this.handleRequest(request),
       request_seq: request.seq,
     };
