@@ -1,6 +1,7 @@
 package actions
 
 import Bundle
+import Config
 import com.intellij.lang.javascript.service.JSLanguageServiceUtil
 import com.intellij.lang.javascript.service.protocol.JSLanguageServiceAnswer
 import com.intellij.openapi.actionSystem.AnAction
@@ -50,7 +51,10 @@ class FormatSourceFromFileAction : AnAction() {
                 val (filePath, source) = ReadAction.compute<FilePathAndSource, RuntimeException> {
                     prepare(project, psiFile)
                 }
-                JSLanguageServiceUtil.awaitFuture(service.formatSourceFromFile(source, filePath))
+                if (Config.supports(filePath))
+                    JSLanguageServiceUtil.awaitFuture(service.formatSourceFromFile(source, filePath))
+                else
+                    null
             },
             Bundle.message("progressTitle"),
             true,
