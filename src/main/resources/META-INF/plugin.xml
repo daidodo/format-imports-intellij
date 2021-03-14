@@ -15,10 +15,13 @@
     </extensions>
 
     <actions>
-        <action id="format-imports.FormatSourceFromFile" class="actions.FormatSourceFromFileAction"
+        <action id="format-imports.FormatSourceFromFile" class="actions.FormatOnCommandAction"
                 text="Sort Imports/Exports">
             <add-to-group group-id="EditorPopupMenu" relative-to-action="EditorToggleColumnMode" anchor="after"/>
             <keyboard-shortcut keymap="$default" first-keystroke="alt shift S"/>
         </action>
     </actions>
+    <extensions defaultExtensionNs="JavaScript">
+        <linterSaveAction implementation="actions.FormatOnSaveAction"/>
+    </extensions>
 </idea-plugin>

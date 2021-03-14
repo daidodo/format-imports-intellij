@@ -11,7 +11,7 @@ import java.util.concurrent.Future
 class FormatImportsService(project: Project) : JSLanguageServiceBase(project) {
 
     companion object {
-        val LOG = Logger.getInstance(FormatImportsService::class.java)
+        val LOG = Logger.getInstance(this::class.java)
     }
 
     init {
