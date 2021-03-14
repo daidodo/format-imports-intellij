@@ -11,6 +11,8 @@ import com.intellij.openapi.application.ReadAction
 import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.diagnostic.Logger
+import com.intellij.openapi.editor.Document
+import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.ex.util.EditorScrollingPositionKeeper
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.project.Project
@@ -26,30 +28,46 @@ class FormatSourceFromFileAction : AnAction() {
     }
 
     override fun update(e: AnActionEvent) {
-        e.presentation.isEnabledAndVisible = e.project != null
+        e.presentation.isEnabledAndVisible = visible(e)
     }
 
-    data class FilePathAndSource(val filePath: String, val source: String)
+    data class EditorAndDocAndFile(val editor: Editor, val document: Document, val psiFile: PsiFile?)
 
-    private fun prepare(project: Project?, psiFile: PsiFile?): FilePathAndSource? {
+    data class PathAndSource(val filePath: String, val source: String)
+
+    private fun visible(e: AnActionEvent): Boolean {
+        val project = e.project ?: return false
+        val (_, document, psiFile) = editorAndDocAndFile(e) ?: return false
+        if (!document.isWritable) return false
+        val (filePath) = filePathAndSource(project, psiFile) ?: return false
+        return Config.supports(filePath)
+    }
+
+    private fun editorAndDocAndFile(e: AnActionEvent): EditorAndDocAndFile? {
+        val project = e.project ?: return null
+        val editor = e.getData(CommonDataKeys.EDITOR) ?: return null
+        val document = editor.document
+        val psiFile = PsiDocumentManager.getInstance(project).getPsiFile(document)
+        return EditorAndDocAndFile(editor, document, psiFile)
+    }
+
+    private fun filePathAndSource(project: Project?, psiFile: PsiFile?): PathAndSource? {
         if (project == null || psiFile == null) return null
         val file = psiFile.virtualFile ?: return null
         val document = PsiDocumentManager.getInstance(project).getDocument(psiFile) ?: return null
         val source =
             JSLanguageServiceUtil.convertLineSeparatorsToFileOriginal(project, document.charsSequence, file).toString()
-        return FilePathAndSource(file.path, source)
+        return PathAndSource(file.path, source)
     }
 
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
-        val editor = e.getData(CommonDataKeys.EDITOR) ?: return
-        val document = editor.document
+        val (editor, document, psiFile) = editorAndDocAndFile(e) ?: return
         val service = ServiceManager.getService(project, FormatImportsService::class.java)
-        val psiFile = PsiDocumentManager.getInstance(project).getPsiFile(document) ?: return
         val response = ProgressManager.getInstance().runProcessWithProgressSynchronously(
             ThrowableComputable<JSLanguageServiceAnswer?, RuntimeException> {
-                val (filePath, source) = ReadAction.compute<FilePathAndSource, RuntimeException> {
-                    prepare(project, psiFile)
+                val (filePath, source) = ReadAction.compute<PathAndSource, RuntimeException> {
+                    filePathAndSource(project, psiFile)
                 }
                 if (Config.supports(filePath))
                     JSLanguageServiceUtil.awaitFuture(service.formatSourceFromFile(source, filePath))
@@ -60,7 +78,7 @@ class FormatSourceFromFileAction : AnAction() {
             true,
             project
         ) ?: return
-        LOG.warn("response: $response")
+        LOG.debug("response: $response")
         val error = response.element["error"].asString
         if (error != null && error.isNotEmpty()) {
             // TODO: Error handler

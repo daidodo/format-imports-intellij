@@ -29,7 +29,7 @@ class FormatImportsService(project: Project) : JSLanguageServiceBase(project) {
                 val file =
                     JSLanguageServiceUtil.getPluginDirectory(this.javaClass, "languageService/index.js")
                 state.pluginPath = LocalFilePath.create(file.absolutePath)
-                LOG.warn("pluginName: ${state.pluginName}, pluginPath: ${state.pluginPath}")
+                LOG.debug("pluginName: ${state.pluginName}, pluginPath: ${state.pluginPath}")
                 return state
             }
         }
@@ -45,7 +45,7 @@ class FormatImportsService(project: Project) : JSLanguageServiceBase(project) {
 
     fun formatSourceFromFile(source: String, filePath: String): Future<JSLanguageServiceAnswer>? {
         val request = Request(source, filePath)
-        LOG.warn("request: command = ${request.command}, filePath = ${request.filePath}, source = ${request.source}")
+        LOG.debug("request: command = ${request.command}, filePath = ${request.filePath}, source = ${request.source}")
         return sendCommand(request) { _, response ->
             response
         }
