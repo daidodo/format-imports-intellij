@@ -23,6 +23,7 @@ sealed class ActionCommon {
 
     companion object {
         private val LOG = Logger.getInstance(this::class.java)
+        private const val FORMAT_TIMEOUT_MS = 2000L
 
         fun isSupported(document: Document, project: Project?): Boolean {
             if (project == null || !document.isWritable) return false
@@ -57,7 +58,7 @@ sealed class ActionCommon {
                 if (!Config.supports(filePath)) null
                 else JSLanguageServiceUtil.awaitFuture(
                     service.formatSourceFromFile(source, filePath),
-                    2000,
+                    FORMAT_TIMEOUT_MS,
                     JSLanguageServiceUtil.QUOTA_MILLS,
                     null,
                     true,

@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull
 class OnSaveAction : LinterSaveActionsManager.LinterSaveAction() {
 
     override fun isEnabledForProject(project: @NotNull Project): Boolean {
-        return Config.Instance(project).state.formatOnSave
+        return Config.instance(project).state.formatOnSave
     }
 
     override fun processDocuments(project: @NotNull Project, documents: @NotNull Array<out @NotNull Document>) {

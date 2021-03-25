@@ -11,7 +11,7 @@ class Config(private val project: Project) :
     PersistentStateComponent<Config.State> {
 
     companion object {
-        fun Instance(project: Project): Config {
+        fun instance(project: Project): Config {
             return ServiceManager.getService(project, Config::class.java)
         }
     }

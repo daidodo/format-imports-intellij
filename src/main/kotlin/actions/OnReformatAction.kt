@@ -27,7 +27,7 @@ class OnReformatAction : PostFormatProcessor {
     companion object {
         fun isApplicable(psiFile: PsiFile): Boolean {
             val project = psiFile.project
-            if (!Config.Instance(project).state.formatOnReformat) return false
+            if (!Config.instance(project).state.formatOnReformat) return false
             return ActionCommon.isSelectedSupported(psiFile)
         }
     }

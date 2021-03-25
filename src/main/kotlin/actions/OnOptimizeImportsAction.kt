@@ -16,7 +16,7 @@ class OnOptimizeImportsAction : ImportOptimizer {
 
         fun isApplicable(psiFile: PsiFile): Boolean {
             val project = psiFile.project
-            if (!Config.Instance(project).state.formatOnOptimizeImports) return false
+            if (!Config.instance(project).state.formatOnOptimizeImports) return false
             return ActionCommon.isSelectedSupported(psiFile)
         }
     }
@@ -32,8 +32,7 @@ class OnOptimizeImportsAction : ImportOptimizer {
         val document = PsiDocumentManager.getInstance(project).getDocument(psiFile)
         if (document != null) {
             val result = ActionCommon.format(document, project, false)
-            if (result != null)
-                document.setText(result)
+            if (result != null) document.setText(result)
         }
     }
 }

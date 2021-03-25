@@ -14,7 +14,7 @@ class ConfigPanel(private val project: Project) :
     BoundSearchableConfigurable(Bundle.message("name"), "daidodo.format-imports-intellij.settings") {
 
     override fun createPanel(): DialogPanel {
-        val config = Config.Instance(project)
+        val config = Config.instance(project)
         return panel {
             row {
                 val autoFormatWhen = JLabel(Bundle.message("label.autoFormatWhen"))
@@ -22,10 +22,13 @@ class ConfigPanel(private val project: Project) :
             }
             row("") {
                 cell {
-                    checkBox(Bundle.message("label.reformatCode"),
-                        { config.state.formatOnReformat }, {
+                    checkBox(
+                        Bundle.message("label.reformatCode"),
+                        { config.state.formatOnReformat },
+                        {
                             config.state.formatOnReformat = it
-                        })
+                        }
+                    )
                     // https://centic9.github.io/IntelliJ-Action-IDs/
                     val shortcut =
                         ActionManager.getInstance().getKeyboardShortcut(IdeActions.ACTION_EDITOR_REFORMAT)
@@ -34,10 +37,13 @@ class ConfigPanel(private val project: Project) :
             }
             row("") {
                 cell {
-                    checkBox(Bundle.message("label.SaveFile"),
-                        { config.state.formatOnSave }, {
+                    checkBox(
+                        Bundle.message("label.SaveFile"),
+                        { config.state.formatOnSave },
+                        {
                             config.state.formatOnSave = it
-                        })
+                        }
+                    )
                     val shortcut = ActionManager.getInstance().getKeyboardShortcut("SaveAll")
                     shortcut?.let { comment(KeymapUtil.getShortcutText(it)) }
                 }
