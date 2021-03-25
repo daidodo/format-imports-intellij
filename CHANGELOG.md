@@ -2,6 +2,11 @@
 
 # format-imports-intellij Changelog
 
+## [1.0.2]
+### Added
+- Add project settings.
+- Format on reformatting code.
+
 ## [1.0.0]
 ### Added
 - Format on save, or manually from context menu or shortcut.
