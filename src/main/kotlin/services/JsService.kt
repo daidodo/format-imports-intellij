@@ -16,7 +16,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.util.EmptyConsumer
 import java.util.concurrent.Future
 
-class FormatImportsService(project: Project) : JSLanguageServiceBase(project) {
+class JsService(project: Project) : JSLanguageServiceBase(project) {
 
     companion object {
         val LOG = Logger.getInstance(this::class.java)

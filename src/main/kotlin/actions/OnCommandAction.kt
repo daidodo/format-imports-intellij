@@ -6,7 +6,7 @@ import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.editor.ex.util.EditorScrollingPositionKeeper
 
-class FormatOnCommandAction : AnAction() {
+class OnCommandAction : AnAction() {
 
     override fun update(e: AnActionEvent) {
         val editor = e.getData(CommonDataKeys.EDITOR)
@@ -17,7 +17,7 @@ class FormatOnCommandAction : AnAction() {
         val project = e.project ?: return
         val editor = e.getData(CommonDataKeys.EDITOR) ?: return
         val document = editor.document
-        val result = ActionCommon.format(document, project) ?: return
+        val result = ActionCommon.format(document, project, true) ?: return
         EditorScrollingPositionKeeper.perform(editor, true) {
             WriteCommandAction.runWriteCommandAction(project) { document.setText(result) }
         }

@@ -11,17 +11,21 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <projectService serviceImplementation="services.FormatImportsService"/>
+        <projectService serviceImplementation="services.JsService"/>
+        <projectConfigurable parentId="Settings.JavaScript" bundle="messages.Bundle" key="name"
+                             id="daidodo.format-imports-intellij.settings" instance="config.ConfigPanel"/>
+        <projectService serviceImplementation="config.Config"/>
+        <postFormatProcessor implementation="actions.OnReformatAction"/>
     </extensions>
 
     <actions>
-        <action id="format-imports.FormatSourceFromFile" class="actions.FormatOnCommandAction"
+        <action id="format-imports.FormatSourceFromFile" class="actions.OnCommandAction"
                 text="Sort Imports/Exports">
             <add-to-group group-id="EditorPopupMenu" relative-to-action="EditorToggleColumnMode" anchor="after"/>
             <keyboard-shortcut keymap="$default" first-keystroke="alt shift S"/>
         </action>
     </actions>
     <extensions defaultExtensionNs="JavaScript">
-        <linterSaveAction implementation="actions.FormatOnSaveAction"/>
+        <linterSaveAction implementation="actions.OnSaveAction"/>
     </extensions>
 </idea-plugin>
