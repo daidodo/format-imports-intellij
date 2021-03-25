@@ -2,7 +2,7 @@
 
 # format-imports-intellij Changelog
 
-## [1.0.2]
+## [Unreleased]
 ### Added
 - Add project settings.
 - Format on reformatting code.
