@@ -10,14 +10,69 @@ Automatically format **imports** and **exports** for **JavaScript** and **TypeSc
 
 ## Features
 
-- Auto format imports and exports on save, or manually from command, shortcut or context menu.
+- Auto format imports and exports on saving file; Or manually from reformatting code, short-cut or context menu.
 - Group and sort imports by [custom rules](https://github.com/daidodo/format-imports/blob/main/README.md#grouping-rules), including [sort by paths or names](https://github.com/daidodo/format-imports/blob/main/docs/interfaces/configuration.md#sortimportsby).
 - Remove duplicated and unused names with [configurable exceptions](https://github.com/daidodo/format-imports/blob/main/README.md#unused-imports-removal).
 - [Ignore files or declarations](https://github.com/daidodo/format-imports/blob/main/README.md#ignoring-files-or-declarations) by config or inline comments.
-- Respect [ESLint](https://eslint.org) and [eslint-plugin-import](https://github.com/benmosher/eslint-plugin-import) rules.
-- Respect configs from [Prettier](https://prettier.io), [EditorConfig](https://editorconfig.org) and VS Code editor settings.
+- Respect [ESLint](https://eslint.org) and [eslint-plugin-import](https://github.com/benmosher/eslint-plugin-import) rules ([Wiki](https://github.com/daidodo/format-imports/wiki/ESLint-Compatibility)).
+- Respect configs from [Prettier](https://prettier.io) and [EditorConfig](https://editorconfig.org).
 - Preserve `'use strict'`, `///` directives, shebang (`#!`) and comments.
 - Support [Type-Only imports/exports](https://devblogs.microsoft.com/typescript/announcing-typescript-3-8/#type-only-imports-exports).
+
+## How to use
+
+- <kbd>Settings/Preferences</kbd> > <kbd>Languages & Frameworks</kbd> > <kbd>JavaScript</kbd> > <kbd>JS/TS Import/Export Sorter</kbd>
+  - Enable auto format on `Save` (<kbd>Ctrl+S</kbd> or <kbd>⌘S</kbd>)
+  - Enable auto format on `Reformat Code` (<kbd>Ctrl+Alt+L</kbd> or <kbd>⌘⌥L</kbd>)
+
+  <img width="475" alt="1" src="https://user-images.githubusercontent.com/8170176/112557394-470be380-8dc4-11eb-944e-96b98824f85f.png">
+
+- Press short-cut keys, default to <kbd>Alt+Shift+S</kbd> or <kbd>⌥⇧S</kbd>.
+- Right click on editor content and select `Sort Imports/Exports`.
+
+  <img width="421" alt="2" src="https://user-images.githubusercontent.com/8170176/112558168-04e3a180-8dc6-11eb-997c-3b23bd379672.png">
+
+## Configuration
+
+The extension reads configurations from the following sources (in precedence from high to low):
+
+- [ESLint configuration](https://eslint.org/docs/user-guide/configuring) if installed.
+- `"importSorter"` section in `package.json`
+- `import-sorter.json`
+- [Prettier configuration](https://github.com/prettier/prettier-vscode#configuration) if installed
+- `.editorconfig`
+
+## Config Files
+
+All options in [Configuration](https://github.com/daidodo/format-imports/blob/main/docs/interfaces/configuration.md) are available in `import-sorter.json` or `package.json` under `"importSorter` section.
+
+For examples:
+
+_import-sorter.json:_
+
+```json
+{
+  "quoteMark": "single",
+  "wrappingStyle": {
+    "maxBindingNamesPerLine": 2
+  }
+}
+```
+
+Or
+
+_package.json:_
+
+```json
+{
+  "importSorter": {
+    "quoteMark": "single",
+    "wrappingStyle": {
+      "maxBindingNamesPerLine": 2
+    }
+  }
+}
+```
 
 <!-- Plugin description end -->
 
