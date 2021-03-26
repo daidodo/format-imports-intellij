@@ -22,12 +22,12 @@ Automatically format **imports** and **exports** for **JavaScript** and **TypeSc
 ## How to use
 
 - <kbd>Settings/Preferences</kbd> > <kbd>Languages & Frameworks</kbd> > <kbd>JavaScript</kbd> > <kbd>JS/TS Import/Export Sorter</kbd>
-  - Enable auto format on `Save` (<kbd>Ctrl+S</kbd> or <kbd>⌘S</kbd>)
-  - Enable auto format on `Reformat Code` (<kbd>Ctrl+Alt+L</kbd> or <kbd>⌘⌥L</kbd>)
+  - Enable auto format on `Save` (`Ctrl+S` or `⌘S`)
+  - Enable auto format on `Reformat Code` (`Ctrl+Alt+L` or `⌘⌥L`)
 
   <img width="475" alt="1" src="https://user-images.githubusercontent.com/8170176/112557394-470be380-8dc4-11eb-944e-96b98824f85f.png">
 
-- Press short-cut keys, default to <kbd>Alt+Shift+S</kbd> or <kbd>⌥⇧S</kbd>.
+- Press short-cut keys, default to `Alt+Shift+S` or `⌥⇧S`.
 - Right click on editor content and select `Sort Imports/Exports`.
 
   <img width="421" alt="2" src="https://user-images.githubusercontent.com/8170176/112558168-04e3a180-8dc6-11eb-997c-3b23bd379672.png">
