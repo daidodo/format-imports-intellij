@@ -17,6 +17,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.ThrowableComputable
 import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiFile
+import services.JsConfig
 import services.JsService
 
 sealed class ActionCommon {
@@ -46,7 +47,7 @@ sealed class ActionCommon {
 
         private data class PathAndSource(val filePath: String, val source: String)
 
-        fun format(document: Document, project: Project?, withProgress: Boolean): String? {
+        fun format(document: Document, project: Project?, withProgress: Boolean, force: Boolean): String? {
             if (project == null) return null
             val psiFile = PsiDocumentManager.getInstance(project).getPsiFile(document) ?: return null
             val service = ServiceManager.getService(project, JsService::class.java)
@@ -57,7 +58,7 @@ sealed class ActionCommon {
                 }
                 if (!Config.supports(filePath)) null
                 else JSLanguageServiceUtil.awaitFuture(
-                    service.formatSourceFromFile(source, filePath),
+                    service.formatSourceFromFile(source, filePath, JsConfig(force)),
                     FORMAT_TIMEOUT_MS,
                     JSLanguageServiceUtil.QUOTA_MILLS,
                     null,

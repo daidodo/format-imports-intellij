@@ -31,7 +31,7 @@ class OnOptimizeImportsAction : ImportOptimizer {
         val project = psiFile.project
         val document = PsiDocumentManager.getInstance(project).getDocument(psiFile)
         if (document != null) {
-            val result = ActionCommon.format(document, project, false)
+            val result = ActionCommon.format(document, project, withProgress = false, force = true)
             if (result != null) document.setText(result)
         }
     }

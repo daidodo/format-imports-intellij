@@ -28,7 +28,7 @@ class JsService(project: Project) : JSLanguageServiceBase(project) {
 
     override fun needInitToolWindow() = false
 
-    override fun createLanguageServiceQueue(): JSLanguageServiceQueue? {
+    override fun createLanguageServiceQueue(): JSLanguageServiceQueue {
         val protocol = object : JSLanguageServiceNodeStdProtocolBase(myProject, EmptyConsumer.getInstance<Any>()) {
             override fun dispose() {}
             override fun createState(): JSLanguageServiceInitialState {
@@ -46,13 +46,15 @@ class JsService(project: Project) : JSLanguageServiceBase(project) {
         )
     }
 
-    class Request(val source: String, val filePath: String) : JSLanguageServiceCommandObject() {
+    class Request(val source: String, val filePath: String, val config: JsConfig) :
+        JSLanguageServiceCommandObject() {
         override fun getCommand() = "formatSourceFromFile"
     }
 
-    fun formatSourceFromFile(source: String, filePath: String): Future<JSLanguageServiceAnswer>? {
-        val request = Request(source, filePath)
-        LOG.info("request: command = ${request.command}, filePath = ${request.filePath}, source = ${request.source}")
+    fun formatSourceFromFile(source: String, filePath: String, config: JsConfig): Future<JSLanguageServiceAnswer>? {
+        val request = Request(source, filePath, config)
+        LOG.info("request: command = ${request.command}, filePath = ${request.filePath}, config = ${request.config}")
+        LOG.info("source = ${request.source}")
         return sendCommand(request) { _, response ->
             response
         }

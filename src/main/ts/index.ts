@@ -26,7 +26,7 @@ class FormatImportsPlugin implements Plugin {
     try {
       switch (command) {
         case 'formatSourceFromFile':
-          return FormatImportsPlugin.formatSourceFromFile(request.arguments as FormatFileArgs);
+          return FormatImportsPlugin.formatSourceFromFile(request.arguments);
         default:
           return { error: `Unknown command '${command}'` };
       }
@@ -37,10 +37,9 @@ class FormatImportsPlugin implements Plugin {
 
   private static formatSourceFromFile(args: FormatFileArgs | undefined) {
     if (!args || !args.filePath) return { error: 'Missing file path' };
-    const { filePath, source } = args;
-    // TODO: Base config
-    const config = fmt.resolveConfigForFile(filePath);
-    if (fmt.isFileExcludedByConfig(filePath, config)) return;
+    const { filePath, source, config: baseConfig } = args;
+    const config = fmt.resolveConfigForFile(filePath, baseConfig);
+    if (fmt.isFileExcludedByConfig(filePath, config)) return {};
     return { result: fmt.formatSourceFromFile(source, filePath, config) };
   }
 }

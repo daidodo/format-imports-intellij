@@ -17,7 +17,8 @@ class OnReformatAction : PostFormatProcessor {
         if (!isApplicable(psiFile)) return rangeToReformat
         val project = psiFile.project
         val document = PsiDocumentManager.getInstance(project).getDocument(psiFile) ?: return rangeToReformat
-        val result = ActionCommon.format(document, project, false) ?: return rangeToReformat
+        val result =
+            ActionCommon.format(document, project, withProgress = false, force = false) ?: return rangeToReformat
         val oldLength = document.textLength
         document.setText(result)
         rangeToReformat.grown(result.length - oldLength)

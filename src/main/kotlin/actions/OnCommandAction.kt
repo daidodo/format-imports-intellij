@@ -17,7 +17,7 @@ class OnCommandAction : AnAction() {
         val project = e.project ?: return
         val editor = e.getData(CommonDataKeys.EDITOR) ?: return
         val document = editor.document
-        val result = ActionCommon.format(document, project, true) ?: return
+        val result = ActionCommon.format(document, project, withProgress = true, force = true) ?: return
         EditorScrollingPositionKeeper.perform(editor, true) {
             WriteCommandAction.runWriteCommandAction(project) { document.setText(result) }
         }

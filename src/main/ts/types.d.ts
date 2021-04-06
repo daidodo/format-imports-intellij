@@ -1,3 +1,5 @@
+import { Configuration } from 'format-imports';
+
 export interface MessageWriter {
   write(answer: string): void;
 }
@@ -12,7 +14,7 @@ export interface Request {
   seq: number;
   type: string;
   command: string;
-  arguments?: Record<string, any>;
+  arguments?: any;
 }
 
 export interface Response {
@@ -24,12 +26,13 @@ export interface Response {
 export interface FormatFileArgs {
   filePath: string;
   source: string;
+  config: Configuration;
 }
 
 export interface Plugin {
-  onMessage(p: string, writer: MessageWriter)
+  onMessage(p: string, writer: MessageWriter);
 }
 
 export interface PluginFactory {
-  create(state: PluginState)
+  create(state: PluginState);
 }

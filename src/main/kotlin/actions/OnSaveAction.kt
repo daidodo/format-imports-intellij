@@ -16,7 +16,7 @@ class OnSaveAction : LinterSaveActionsManager.LinterSaveAction() {
     override fun processDocuments(project: @NotNull Project, documents: @NotNull Array<out @NotNull Document>) {
         for (document in documents) {
             if (ActionCommon.isSupported(document, project)) {
-                val result = ActionCommon.format(document, project, true) ?: continue
+                val result = ActionCommon.format(document, project, withProgress = true, force = false) ?: continue
                 WriteCommandAction.runWriteCommandAction(project) { document.setText(result) }
             }
         }
