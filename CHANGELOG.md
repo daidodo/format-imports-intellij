@@ -3,6 +3,17 @@
 # format-imports-intellij Changelog
 
 ## [Unreleased]
+
+### Added
+
+- Support ESLint [indent](https://eslint.org/docs/rules/indent) and
+  [@typescript-eslint/indent](https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/indent.md)
+  rules.
+
+### Changed
+
+- `tabWidth` from ESLint [max-len](https://eslint.org/docs/rules/max-len) doesn't impact `tabSize` config.
+
 ## [1.1.0]
 
 ### Added
