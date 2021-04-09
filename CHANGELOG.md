@@ -3,6 +3,7 @@
 # format-imports-intellij Changelog
 
 ## [Unreleased]
+## [1.1.1]
 
 ### Added
 
