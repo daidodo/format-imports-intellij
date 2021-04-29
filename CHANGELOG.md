@@ -3,6 +3,15 @@
 # format-imports-intellij Changelog
 
 ## [Unreleased]
+
+### Added
+
+- Add `ignoreESLintRules` config to ignore specific ESLint rules.
+
+### Changed
+
+- Update default `GroupRules` to group [`node:` imports](https://nodejs.org/api/esm.html#esm_node_imports) separately.
+
 ## [1.1.1]
 
 ### Added
